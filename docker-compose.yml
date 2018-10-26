@@ -33,6 +33,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
     container_name: mysql
+    ports:
+      - "3308:3306"
 networks:
   frontend:
   backend:
