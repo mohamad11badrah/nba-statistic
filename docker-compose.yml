@@ -1,11 +1,11 @@
 version: "3.2"
 services:
   php:
-    build: ./php/
+    build: ./nba-backend/php/
     networks:
       - backend
     volumes:
-      - ./public_html/:/var/www/html/
+      - ./nba-backend/public_html/:/var/www/html/
     container_name: php
     ports:
       - '3000:80'
@@ -15,7 +15,7 @@ services:
     networks:
       - backend
     volumes:
-       - ./mariadb/:/var/lib/mysql/
+       - ./nba-backend/mariadb/:/var/lib/mysql/
     ports:
       - '3308:3306'
     environment:
