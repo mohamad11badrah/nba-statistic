@@ -6,10 +6,10 @@ ENV APP_ENV $app_env
 
 RUN apt-get update -qq && apt-get install -y build-essential curl libpq-dev
 RUN mkdir /app
-WORKDIR /nba-frontend
+WORKDIR /app
 
-COPY . /nba-frontend
+COPY ./nba-frontend/package.json /app
 
-ADD . /nba-frontend
+ADD . /app
 
 RUN npm install
