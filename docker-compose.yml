@@ -9,7 +9,7 @@ services:
       - '.:/usr/src/app'
       - '/usr/src/app/node_modules'
     ports:
-      - '3001:3001'
+      - '3000:3000'
     environment:
       - NODE_ENV=development
     command: npm start
@@ -21,7 +21,7 @@ services:
       - ./nba-backend/public_html/:/var/www/html/
     container_name: php
     ports:
-      - '3000:80'
+      - '3001:80'
   database:
     container_name: DB
     image: mariadb
