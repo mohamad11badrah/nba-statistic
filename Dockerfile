@@ -8,7 +8,7 @@ RUN apt-get update -qq && apt-get install -y build-essential curl libpq-dev
 RUN mkdir /app
 WORKDIR /app
 
-COPY ./nba-frontend/package.json /app
+COPY ./nba-frontend /app
 
 ADD . /app
 
