@@ -1,15 +1,17 @@
-FROM node:8.11.1-wheezy
+# base image
+FROM node:9.6.1
 
-ENV NPM_CONFIG_LOGLEVEL warn
-ARG app_env
-ENV APP_ENV $app_env
+# set working directory
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-RUN apt-get update -qq && apt-get install -y build-essential curl libpq-dev
-RUN mkdir /app
-WORKDIR /app
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-COPY ./nba-frontend /app
+# install and cache app dependencies
+COPY package.json /usr/src/app/package.json
+RUN npm install --silent
+RUN npm install react-scripts@1.1.1 -g --silent
 
-ADD . /app
-
-RUN npm install
+# start app
+CMD ["npm", "start"]
