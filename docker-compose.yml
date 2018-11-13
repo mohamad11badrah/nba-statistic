@@ -5,6 +5,8 @@ services:
     build:
       context: ./nba-frontend
     command: npm run start
+    networks:
+      - backend
     volumes:
       - ./nba-frontend:/app
       - /app/node_modules
@@ -52,5 +54,4 @@ services:
         - MYSQL_PASSWORD=123
         - MYSQL_DATABASE=npa
 networks:
-  frontend:
   backend:
