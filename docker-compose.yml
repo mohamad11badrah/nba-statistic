@@ -3,11 +3,11 @@ services:
   nba-frontend:
     container_name: nba-frontend
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./nba-frontend
+    command: npm run start
     volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - ./nba-frontend:/app
+      - /app/node_modules
     ports:
       - '3000:3000'
     environment:
