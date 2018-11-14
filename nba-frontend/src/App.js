@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import ApiURL from './apiClient';
 import $ from 'jquery';
+import Header from './components/Header'
 
 class App extends Component {
   state = {
@@ -26,6 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <Header></Header>
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
