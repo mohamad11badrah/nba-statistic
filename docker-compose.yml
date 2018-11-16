@@ -11,7 +11,7 @@ services:
       - ./nba-frontend:/app
       - /app/node_modules
     ports:
-      - '3000:3000'
+      - '3001:3001'
     environment:
       - NODE_ENV=development
   nba-localapi:
@@ -35,10 +35,10 @@ services:
     networks:
       - backend
     volumes:
-      - ./nba-backend/public_html/:/var/www/html/
+      - ./nba-backend/php/public_html/:/var/www/html/
     container_name: php
     ports:
-      - '3001:80'
+      - '3000:80'
   database:
     container_name: DB
     image: mariadb
@@ -52,6 +52,6 @@ services:
         - MYSQL_ROOT_PASSWORD=admin123
         - MYSQL_USER=admin
         - MYSQL_PASSWORD=123
-        - MYSQL_DATABASE=npa
+        - MYSQL_DATABASE=nba
 networks:
   backend:
