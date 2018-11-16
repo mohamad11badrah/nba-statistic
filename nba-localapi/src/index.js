@@ -7,13 +7,13 @@ var connection = mysql.createConnection({
   host: 'DB',
   user: 'admin',
   password: '123',
-  database: 'npa'
+  database: 'nba'
 })
 
 connection.connect(function(err) {
   if (err) throw err
   console.log('You are now connected...')
-  connection.query('SELECT * FROM user', function(err, results) {
+  connection.query('SELECT * FROM player', function(err, results) {
     if (err) throw err
     app.get('/user' , (req, res) => res.send(results));
     app.listen(port, () => console.log(`Listening on port ${port}`));

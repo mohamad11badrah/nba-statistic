@@ -2,6 +2,9 @@
 require_once 'classes/database/Database.php';
 require_once 'classes/collection/Collection.php';
 
+
+
+
 $db = new Database();
 $conn =$db->getConnection();
 

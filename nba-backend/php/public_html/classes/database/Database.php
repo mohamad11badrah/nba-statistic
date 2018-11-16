@@ -20,9 +20,12 @@ class Database
     {
         $db = parse_ini_file('settings.ini');
         $connect = mysqli_connect($db['host'], $db['user'], $db['pass'], $db['name'], $db['port']);
+
         $this->_connection = $connect;
         if (!$this->_connection) {
-            print "es gibt keine Verbindung mit der Datenbank ";
+            print "Es gibt keine Verbindung mit der Datenbank ";
+        }else {
+            print "Es gibt Verbindung";
         }
     }
     /**
