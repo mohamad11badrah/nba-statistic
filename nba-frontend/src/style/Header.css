@@ -1,0 +1,20 @@
+.main-head {
+    width: 100%;
+    margin: 0px;
+}
+.head-logo {
+    animation: head-logo-spin infinite 20s linear;
+    height: 50px;
+    width: 50px;
+}
+
+
+@keyframes head-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
