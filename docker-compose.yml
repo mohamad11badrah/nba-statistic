@@ -46,6 +46,7 @@ services:
       - backend
     volumes:
        - ./nba-backend/mariadb/:/var/lib/mysql/
+       - ./nba-backend/test:/docker-entrypoint-initdb.d
     ports:
       - '3308:3306'
     environment:

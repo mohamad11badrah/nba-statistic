@@ -12,6 +12,11 @@ class Collector
     private $_objectJson;
     private $_connection;
 
+    function __construct($db)
+    {
+        return $this->_connection = $db->getConnection();
+    }
+
     public function setlink ($value) {
         $this->_link = $value;
     }
@@ -36,39 +41,67 @@ class Collector
        return $this->_arrayJson;
     }
 
-    function __construct($db)
-        {
-            return $this->_connection = $db->getConnection();
-        }
-
     function getdataXmlUndConvertJson () {
         $xml = simplexml_load_file($this->getLink());
         $json = json_encode($xml);
        return json_decode($json, true);
     }
 
+    function getSelectDataFromDatabase ($tabelName) {
+        $rows = null;
+        $result_sql = null;
+        if ($tabelName == 'team') {
+            $sqlTeam = "SELECT * FROM `team`";
+            $result_sql = mysqli_query($this->_connection, $sqlTeam );
+        } elseif ($tabelName == 'player') {
+            $sqlPlayer = "SELECT * FROM `player`";
+            $result_sql = mysqli_query($this->_connection, $sqlPlayer);
+        } elseif ($tabelName == 'games') {
+            $sql_games = "SELECT * FROM `games`";
+            $result_sql = mysqli_query($this->_connection, $sql_games);
+        }elseif ($tabelName == 'report'){
+            $sql_report = "SELECT * FROM `report`";
+            $result_sql = mysqli_query($this->_connection, $sql_report);
+        } elseif($tabelName == 'depthCharts') {
+            $sql_report = "SELECT * FROM `depthCharts`";
+            $result_sql = mysqli_query($this->_connection, $sql_report);
+        }
+        if (!$result_sql) {
+            print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+        } else {
+            while ($row = mysqli_fetch_array($result_sql, MYSQLI_ASSOC)) {
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+    }
+
     function insertDataToDatabase ($tabelName)
     {
         $items = $this->getArrayJson()[$this->getObjectJson()];
+
         switch ($tabelName) {
             case 'team':
-                foreach ($items as $item) {
-                    $sql = "INSERT INTO team (code, name, conference, division)
+                if (empty($this->getSelectDataFromDatabase('team'))) {
+                    foreach ($items as $item) {
+                        $sql = "INSERT INTO team (code, name, conference, division)
                     VALUES 
                     (
                       '" . $item['code'] . "', 
                       '" . $item['name'] . "', 
                       '" . $item['conference'] . "', 
                       '" . $item['division'] . "')";
-                    $result_sql = mysqli_query($this->_connection, $sql);
-                    if (!$result_sql) {
-                            // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                        $result_sql = mysqli_query($this->_connection, $sql);
+                        if (!$result_sql) {
+                             //print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                        }
                     }
                 }
                 break;
             case 'player':
-                foreach ($items as $item) {
-                    $sql = "INSERT INTO player (playerId, name, team, position, height, weight, dob, school)
+                if (empty($this->getSelectDataFromDatabase('player'))) {
+                    foreach ($items as $item) {
+                        $sql = "INSERT INTO player (playerId, name, team, position, height, weight, dob, school)
                     VALUES 
                     (
                       '" . $item['playerId'] . "', 
@@ -79,15 +112,17 @@ class Collector
                       '" . $item['weight'] . "', 
                       '" . $item['dob'] . "', 
                       '" . $item['school'] . "')";
-                    $result_sql = mysqli_query($this->_connection, $sql);
-                    if (!$result_sql) {
-                       // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                        $result_sql = mysqli_query($this->_connection, $sql);
+                        if (!$result_sql) {
+                             //print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                        }
                     }
                 }
                 break;
             case 'games':
-                foreach ($items as $item) {
-                    $sql = "INSERT INTO games (gameId, week, gameDate, away, home)
+                if (empty($this->getSelectDataFromDatabase('games'))) {
+                    foreach ($items as $item) {
+                        $sql = "INSERT INTO games (gameId, week, gameDate, away, home)
                     VALUES
                     (
                       '" . $item['gameId'] . "', 
@@ -95,53 +130,51 @@ class Collector
                       '" . $item['gameDate'] . "', 
                       '" . $item['away'] . "', 
                       '" . $item['home'] . "')";
-                    $result_sql = mysqli_query($this->_connection, $sql);
-                    if (!$result_sql) {
-                        print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                        $result_sql = mysqli_query($this->_connection, $sql);
+                        if (!$result_sql) {
+                           // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                        }
                     }
                 }
                 break;
             case 'depthCharts':
-                $w = null;
-                $sql = "select * from depthCharts";
-                $result_sql = mysqli_query($this->_connection, $sql);
-                while ($row = mysqli_fetch_array($result_sql, MYSQLI_ASSOC)) {
-                    $w[] = $row;
-                }
-                $arrayPosition = null;
-                $arrayPlayer = null;
-                foreach ($items as $key) {
-                    $arrayPosition[] = $key ['Position'];
-                }
-                foreach ($arrayPosition as $item) {
-                    foreach ($item as $key => $value) {
-                        $arrayPlayer[] = $value ['Player'];
+                if (empty($this->getSelectDataFromDatabase('depthCharts'))) {
+                    $arrayPosition = null;
+                    $arrayPlayer = null;
+                    foreach ($items as $key) {
+                        $arrayPosition[] = $key ['Position'];
                     }
-                }
-                foreach ($arrayPlayer as $array) {
-                    foreach ($array as $item) {
-                        $sql = "INSERT INTO depthCharts (playerId,team, position, rank)
+                    foreach ($arrayPosition as $item) {
+                        foreach ($item as $key => $value) {
+                            $arrayPlayer[] = $value ['Player'];
+                        }
+                    }
+                    foreach ($arrayPlayer as $array) {
+                        foreach ($array as $item) {
+                            $sql = "INSERT INTO depthCharts (playerId,team, position, rank)
                         VALUES
                         (
                           '" . $item['playerId'] . "', 
                           '" . $item['team'] . "', 
                           '" . $item['position'] . "', 
                           '" . $item['rank'] . "')";
-                        $result_sql = mysqli_query($this->_connection, $sql);
-                        if (!$result_sql) {
-                            print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                            $result_sql = mysqli_query($this->_connection, $sql);
+                            if (!$result_sql) {
+                               // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                            }
                         }
                     }
                 }
                 break;
             case 'report':
-                $arrayPlayer = null;
-                foreach ($items as $key) {
-                    $arrayPlayer[] = $key ['Player'];
-                }
-                foreach ($arrayPlayer as $array) {
-                    foreach ($array as $item) {
-                        $sql = "INSERT INTO report (playerId, name, injury, notes, updated)
+                if (empty($this->getSelectDataFromDatabase('report'))) {
+                    $arrayPlayer = null;
+                    foreach ($items as $key) {
+                        $arrayPlayer[] = $key ['Player'];
+                    }
+                    foreach ($arrayPlayer as $array) {
+                        foreach ($array as $item) {
+                            $sql = "INSERT INTO report (playerId, name, injury, notes, updated)
                         VALUES
                         (
                           '" . $item['playerId'] . "', 
@@ -149,9 +182,10 @@ class Collector
                           '" . $item['injury'] . "', 
                           '" . $item['notes'] . "', 
                           '" . $item['updated'] . "')";
-                        $result_sql = mysqli_query($this->_connection, $sql);
-                        if (!$result_sql) {
-                            print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                            $result_sql = mysqli_query($this->_connection, $sql);
+                            if (!$result_sql) {
+                               // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                            }
                         }
                     }
                 }
