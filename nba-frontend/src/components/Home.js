@@ -18,7 +18,7 @@ class Home extends Component {
                     <Route exact path='/teams'  component={Teams} />
                     <Route exact path='/chart'  component={Chart} />
                     <Route exact path='/reports'  component={Reports} />
-                    <Route path='/'  render={() => ( <Redirect to="/players" /> )} />
+                    <Route path='/'  render={() => ( <Redirect to="/teams" /> )} />
                 </Switch>
             </div>
         );
