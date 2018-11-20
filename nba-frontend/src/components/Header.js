@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import '../style/Header.css';
 import ball from '../images/ball.png';
 import nba from '../images/nba.png';
-import { Link } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 
 class Header extends Component {
@@ -15,11 +15,11 @@ class Header extends Component {
                 <img src={nba}  className='img' alt='nba' />
             </div>
             <div className='header-button'>
-                {/* <Link to='/dashboard'><Button color="inherit">players</Button></Link> */}
-                <Button color="inherit">games</Button>
-                <Button color="inherit">reports</Button>
-                <Button color="inherit">teams</Button>
-                <Button color="inherit">depth chart</Button>
+                <Button color="inherit" href="/players">players</Button>
+                <Button color="inherit" href="/games">games</Button>
+                <Button color="inherit" href="/reports">reports</Button>
+                <Button color="inherit" href="/teams">teams</Button>
+                <Button color="inherit" href="/chart">chart</Button>
             </div>
          </div>
      );
