@@ -1,10 +1,11 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
+import '../style/Home.css'
 
-class Home extends component{
+class Home extends Component {
     render() {
         return(
-            <div>
-                <p>here is home</p>
+            <div className='main-home'>
+                <p>Home Component</p>
             </div>
         );
     }

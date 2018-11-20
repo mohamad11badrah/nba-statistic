@@ -1,6 +1,6 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
 
-class Games extends component{
+class Games extends Component {
     render() {
         return(
             <div>

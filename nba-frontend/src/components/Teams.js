@@ -1,6 +1,6 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
 
-class Teams extends component{
+class Teams extends Component {
     render() {
         return(
             <div>

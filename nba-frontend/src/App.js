@@ -4,6 +4,7 @@ import './App.css';
 import ApiURL from './apiClient';
 import $ from 'jquery';
 import Header from './components/Header'
+import Home from './components/Home'
 
 class App extends Component {
   // state = {
@@ -24,6 +25,7 @@ class App extends Component {
     return (
       <div>
           <Header></Header>
+          <Home></Home>
       </div>
     );
   }

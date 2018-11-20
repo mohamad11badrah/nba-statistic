@@ -1,6 +1,6 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
 
-class Players extends component{
+class Players extends Component {
     render() {
         return(
             <div>

@@ -1,6 +1,6 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
 
-class Chart extends component{
+class Chart extends Component {
     render() {
         return(
             <div>
