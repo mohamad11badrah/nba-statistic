@@ -9,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+
 class Teams extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +33,7 @@ class Teams extends Component {
         const { teamsData, error } = this.state;
         return(
             <div className='teams-container'>
-                <Paper className="teams-paper">
+                <Paper className="teams-paper" zDepth={3}>
                 <Table className='teams-table'>
                 <TableHead className='table-head'>
                 <TableRow>

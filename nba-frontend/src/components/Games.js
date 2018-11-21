@@ -46,7 +46,7 @@ class Games extends Component {
                 return (
                 <TableRow key={game.id}>
                     <TableCell component="th" scope="row">
-                    <span className='table-span' width={25}>{game.gameDate}</span>
+                    <span className='table-span' width={25}>{game.gameDate.substring(0,10)}</span>
                     </TableCell>
                     <TableCell width={25}><span className='table-span'>{game.away}</span></TableCell>
                     <TableCell width={25}><span className='table-span'>{game.home}</span></TableCell>
