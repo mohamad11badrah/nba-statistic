@@ -20,8 +20,11 @@
 }
 .header-button {
   margin-left: 50%;
-  color: beige;
   margin-top: 20px;
+}
+
+span {
+  color: chocolate;
 }
 
 @keyframes head-logo-spin {
