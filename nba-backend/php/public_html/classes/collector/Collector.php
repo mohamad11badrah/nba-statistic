@@ -11,43 +11,94 @@ class Collector
     private $_arrayJson;
     private $_objectJson;
     private $_connection;
-
+    /**
+     * Collector constructor.
+     *
+     * @param object $db object from the class database.
+     *
+     * return mysqli a connection with the database and put that in $connection.
+     */
     function __construct($db)
     {
         return $this->_connection = $db->getConnection();
     }
-
-    public function setlink ($value) {
+    /**
+     * Set value to the link.
+     *
+     * @param string $value the value of link.
+     */
+    public function setlink ($value)
+    {
         $this->_link = $value;
     }
-    public function setArrayJson ($value) {
+    /**
+     * Set values to arrayJson.
+     *
+     * @param string $value.
+     */
+    public function setArrayJson ($value)
+    {
         $this->_arrayJson = $value;
     }
 
-    public function setobjectJson ($value) {
+    /**
+     * Set value to the objectJson.
+     *
+     * @param string $value the value of objectJson.
+     */
+
+    public function setobjectJson ($value)
+    {
         $this->_objectJson = $value;
     }
-
-    public function getLink() {
+    /**
+     * Get the link´s value.
+     *
+     * @return string link´s value.
+     */
+    public function getLink()
+    {
         return $this->_link;
     }
-
-    public function getObjectJson() {
+    /**
+     * Get the object´s value.
+     *
+     * @return string object´s value.
+     */
+    public function getObjectJson()
+    {
         return $this->_objectJson;
-
     }
-
-    public function getArrayJson () {
+    /**
+     * Get the arrayJson´s value.
+     *
+     * @return string arrayJson´s value.
+     */
+    public function getArrayJson ()
+    {
        return $this->_arrayJson;
     }
-
-    function getdataXmlUndConvertJson () {
+    /**
+     * Get XmlData.
+     * Convert the data to json.
+     * convert json to array in php.
+     * @return array;
+     */
+    function getdataXmlUndConvertJson ()
+    {
         $xml = simplexml_load_file($this->getLink());
         $json = json_encode($xml);
        return json_decode($json, true);
     }
-
-    function getSelectDataFromDatabase ($tabelName) {
+    /**
+     * Show from the database.
+     *
+     * @param string $name the name of the tabel.
+     *
+     * @return array|null
+     */
+    function getSelectDataFromDatabase ($tabelName)
+    {
         $rows = null;
         $result_sql = null;
         if ($tabelName == 'team') {
@@ -75,7 +126,12 @@ class Collector
             return $rows;
         }
     }
-
+    /**
+     * Insert data to the database.
+     *
+     * @param string $tabelName the name of the tabel.
+     *
+     */
     function insertDataToDatabase ($tabelName)
     {
         $items = $this->getArrayJson()[$this->getObjectJson()];
@@ -85,15 +141,15 @@ class Collector
                 if (empty($this->getSelectDataFromDatabase('team'))) {
                     foreach ($items as $item) {
                         $sql = "INSERT INTO team (code, name, conference, division)
-                    VALUES 
-                    (
-                      '" . $item['code'] . "', 
-                      '" . $item['name'] . "', 
-                      '" . $item['conference'] . "', 
-                      '" . $item['division'] . "')";
+                        VALUES 
+                        (
+                          '" . $item['code'] . "', 
+                          '" . $item['name'] . "', 
+                          '" . $item['conference'] . "', 
+                          '" . $item['division'] . "')";
                         $result_sql = mysqli_query($this->_connection, $sql);
                         if (!$result_sql) {
-                             //print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                             print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
                         }
                     }
                 }
@@ -102,19 +158,19 @@ class Collector
                 if (empty($this->getSelectDataFromDatabase('player'))) {
                     foreach ($items as $item) {
                         $sql = "INSERT INTO player (playerId, name, team, position, height, weight, dob, school)
-                    VALUES 
-                    (
-                      '" . $item['playerId'] . "', 
-                      '" . $item['name'] . "', 
-                      '" . $item['team'] . "', 
-                      '" . $item['position'] . "', 
-                      '" . $item['height'] . "', 
-                      '" . $item['weight'] . "', 
-                      '" . $item['dob'] . "', 
-                      '" . $item['school'] . "')";
+                        VALUES 
+                        (
+                          '" . $item['playerId'] . "', 
+                          '" . $item['name'] . "', 
+                          '" . $item['team'] . "', 
+                          '" . $item['position'] . "', 
+                          '" . $item['height'] . "', 
+                          '" . $item['weight'] . "', 
+                          '" . $item['dob'] . "', 
+                          '" . $item['school'] . "')";
                         $result_sql = mysqli_query($this->_connection, $sql);
                         if (!$result_sql) {
-                             //print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                             print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
                         }
                     }
                 }
@@ -123,16 +179,16 @@ class Collector
                 if (empty($this->getSelectDataFromDatabase('games'))) {
                     foreach ($items as $item) {
                         $sql = "INSERT INTO games (gameId, week, gameDate, away, home)
-                    VALUES
-                    (
-                      '" . $item['gameId'] . "', 
-                      '" . $item['week'] . "', 
-                      '" . $item['gameDate'] . "', 
-                      '" . $item['away'] . "', 
-                      '" . $item['home'] . "')";
+                        VALUES
+                        (
+                          '" . $item['gameId'] . "', 
+                          '" . $item['week'] . "', 
+                          '" . $item['gameDate'] . "', 
+                          '" . $item['away'] . "', 
+                          '" . $item['home'] . "')";
                         $result_sql = mysqli_query($this->_connection, $sql);
                         if (!$result_sql) {
-                           // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                            print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
                         }
                     }
                 }
@@ -152,15 +208,15 @@ class Collector
                     foreach ($arrayPlayer as $array) {
                         foreach ($array as $item) {
                             $sql = "INSERT INTO depthCharts (playerId,team, position, rank)
-                        VALUES
-                        (
-                          '" . $item['playerId'] . "', 
-                          '" . $item['team'] . "', 
-                          '" . $item['position'] . "', 
-                          '" . $item['rank'] . "')";
+                            VALUES
+                            (
+                              '" . $item['playerId'] . "', 
+                              '" . $item['team'] . "', 
+                              '" . $item['position'] . "', 
+                              '" . $item['rank'] . "')";
                             $result_sql = mysqli_query($this->_connection, $sql);
                             if (!$result_sql) {
-                               // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                                print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
                             }
                         }
                     }
@@ -175,16 +231,16 @@ class Collector
                     foreach ($arrayPlayer as $array) {
                         foreach ($array as $item) {
                             $sql = "INSERT INTO report (playerId, name, injury, notes, updated)
-                        VALUES
-                        (
-                          '" . $item['playerId'] . "', 
-                          '" . $item['name'] . "', 
-                          '" . $item['injury'] . "', 
-                          '" . $item['notes'] . "', 
-                          '" . $item['updated'] . "')";
+                            VALUES
+                            (
+                              '" . $item['playerId'] . "', 
+                              '" . $item['name'] . "', 
+                              '" . $item['injury'] . "', 
+                              '" . $item['notes'] . "', 
+                              '" . $item['updated'] . "')";
                             $result_sql = mysqli_query($this->_connection, $sql);
                             if (!$result_sql) {
-                               // print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
+                                print "Error: " . $result_sql . "<br>" . mysqli_error($this->_connection);
                             }
                         }
                     }

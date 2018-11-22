@@ -2484,7 +2484,6 @@ VALUES
 	('PHI','Philadelphia Sixers','Eastern','Atlantic'),
 	('PHX','Phoenix Suns','Western','Pacific'),
 	('POR','Portland Trail Blazers','Western','Northwest'),
-	('q','wrerwerewrwerewr','ewrwerwe','werewrewrewrewr'),
 	('SAC','Sacramento Kings','Western','Pacific'),
 	('SAS','San Antonio Spurs','Western','Southwest'),
 	('TOR','Toronto Raptors','Eastern','Atlantic'),
