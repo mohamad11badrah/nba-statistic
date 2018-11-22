@@ -15,11 +15,10 @@ class Header extends Component {
                 <img src={nba}  className='img' alt='nba' />
             </div>
             <div className='header-button'>
-                <Button color="inherit" href="/players">players</Button>
-                <Button color="inherit" href="/games">games</Button>
-                <Button color="inherit" href="/reports">reports</Button>
-                <Button color="inherit" href="/teams">teams</Button>
-                <Button color="inherit" href="/chart">chart</Button>
+                <Button href="/players">players</Button>
+                <Button href="/games">games</Button>
+                <Button href="/reports">reports</Button>
+                <Button href="/teams">teams</Button>
             </div>
          </div>
      );

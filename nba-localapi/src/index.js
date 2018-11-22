@@ -1,8 +1,11 @@
 var express = require('express');
 const app = express();
-var mysql = require('mysql')
+var mysql = require('mysql');
 const port = 3002;
+const cors = require('cors');
 
+
+app.use(cors());
 var connection = mysql.createConnection({
   host: 'DB',
   user: 'admin',
@@ -33,5 +36,5 @@ connection.connect(function(err) {
     if (err) throw err
     app.get('/teams' , (req, res) => res.send(results));
   })
-  app.listen(port, () => console.log(`Listening on port ${port}`));
+  require('http').createServer(app).listen(port, () => console.log(`Listening on port ${port}`));
 })

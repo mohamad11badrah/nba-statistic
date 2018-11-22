@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import ApiURL from '../apiClient';
 import $ from 'jquery';
+import Paper from '@material-ui/core/Paper';
+import '../style/Teams.css';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 
 class Teams extends Component {
     constructor(props) {
@@ -10,6 +18,7 @@ class Teams extends Component {
           error: false,
         };
       }
+      
     componentDidMount() {
     return $.ajax ({
       url: ApiURL('/teams'),
@@ -21,17 +30,34 @@ class Teams extends Component {
     });
   }
     render() {
-          console.log(this.state);
-          
+        const { teamsData, error } = this.state;
         return(
-            <div>
-                <ul>
-                    {
-                    this.state.teamsData.map(function(team){
-                        return <li key={team.code}>{team.name} - {team.code} - {team.division}</li>;
-                    })
-                    }
-                </ul>
+            <div className='teams-container'>
+                <Paper className="teams-paper" zDepth={3}>
+                <Table className='teams-table'>
+                <TableHead className='table-head'>
+                <TableRow>
+                    <TableCell width={33}><h2>ABBREVIATION</h2></TableCell>
+                    <TableCell width={33}><h2>NAME</h2></TableCell>
+                    <TableCell width={34}><h2>DIVISION</h2></TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody  height="calc(100vh - 360px)">
+                {teamsData.map(team => {
+                    return (
+                    <TableRow key={team.code}>
+                        <TableCell component="th" scope="row">
+                        <span className='table-span' width={33}>{team.code}</span>
+                        </TableCell>
+                        <TableCell width={33}><span className='table-span'>{team.name}</span></TableCell>
+                        <TableCell width={34}><span className='table-span'>{team.division}</span></TableCell>
+                    </TableRow>
+                    );
+                })}
+                </TableBody>
+            </Table>
+
+                </Paper>
             </div>
         );
     }

@@ -1,0 +1,25 @@
+.teams-container {
+    width: 75%;
+    margin: auto;
+    overflow-y: scroll;
+    height: 700px;
+}
+.teams-paper {
+    widows: 100px;
+}
+.teams-paper {
+    background-color: #424242 !important;
+}
+.table-head {
+    background-color: #2E2E2E;
+}
+h2 {
+    color: #A43B3B;
+    text-align: center;
+}
+.table-span {
+    color: beige !important;
+}
+.MuiTableCell-body-66 {
+    text-align: center !important;
+}
