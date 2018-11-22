@@ -25,7 +25,7 @@ class Database
         if (!$this->_connection) {
             print "Es gibt keine Verbindung mit der Datenbank ";
         }else {
-            print "Es gibt Verbindung";
+            print "PHP";
         }
     }
     /**
