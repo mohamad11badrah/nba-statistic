@@ -1,1 +1,3 @@
-Will be updated when we have no thing to do :) 
+docker-compose build 
+docker-compose up 
+
