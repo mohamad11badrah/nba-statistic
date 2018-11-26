@@ -28,7 +28,7 @@ services:
     environment:
       - NODE_ENV=development
     # wait until DB container start
-    command: bash -c "sleep 5; npm run start" 
+    command: bash -c "sleep 10; npm run start" 
 
   php:
     build: ./nba-backend/php/
@@ -46,6 +46,7 @@ services:
       - backend
     volumes:
        - ./nba-backend/mariadb/:/var/lib/mysql/
+       - ./nba-backend/test:/docker-entrypoint-initdb.d
     ports:
       - '3308:3306'
     environment:

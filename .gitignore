@@ -22,9 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
-nba-backend/mariadb/aria_log.00000001
-nba-backend/mariadb/aria_log_control
-nba-backend/mariadb/ib_buffer_pool
-nba-backend/mariadb/ib_logfile0
-nba-backend/mariadb/ibdata1
+nba-backend/mariadb/*
+nba-localapi/node_modules/*
